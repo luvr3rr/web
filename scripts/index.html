@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>sebas.sbs | scripts</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        background-color: #121212;
+        color: #e0e0e0;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #333;
+        padding: 14px 20px;
+        color: white;
+      }
+      .navbar .left {
+        font-size: 18px;
+      }
+      .navbar .right a {
+        color: white;
+        text-decoration: none;
+        font-size: 24px;
+      }
+      .content {
+        padding: 20px;
+        max-width: 800px;
+        margin: auto;
+      }
+      .file-list {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+      }
+      .file-list li {
+        background: #1e1e1e;
+        margin: 10px 0;
+        padding: 10px 15px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+      }
+      .file-list li:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+      }
+      .file-list button {
+        padding: 5px 10px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+      .file-list button:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="left">sebas.sbs | scripts</div>
+      <div class="right">
+        <a href="https://sebas.sbs" title="Home">
+          <i class="fas fa-home"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="content">
+      <h1>Available scripts</h1>
+      <ul class="file-list" id="fileList"></ul>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const files = [
+          "file1.txt", // Add your file names here
+        ];
+
+        const fileList = document.getElementById("fileList");
+        files.forEach((file) => {
+          const listItem = document.createElement("li");
+          listItem.textContent = file;
+          const downloadButton = document.createElement("button");
+          downloadButton.textContent = "view";
+          downloadButton.onclick = () => {
+            window.location.href = `/scripts/s/${file}`;
+          };
+          listItem.appendChild(downloadButton);
+          fileList.appendChild(listItem);
+        });
+      });
+    </script>
+  </body>
+</html>
