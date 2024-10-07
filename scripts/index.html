@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-  <meta content="sebas.sbs | scripts" property="og:title" />
-  <meta content="Website where you can find scripts made by me" property="og:description" />
-  <meta content="https://sebas.sbs" property="og:url" />
-  <meta content="Website where you can find scripts made by me" name="description" />
-  <meta content="#000000" data-react-helmet="true" name="theme-color" />
+    <meta content="sebas.sbs | scripts" property="og:title" />
+    <meta content="Scripts made by me lol" property="og:description" />
+    <meta content="https://sebas.sbs" property="og:url" />
+    <meta content="Scripts made by me lol" name="description" />
+    <meta content="#000000" data-react-helmet="true" name="theme-color" />
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>sebas.sbs | scripts</title>
-    <link rel="shortcut icon" type="image/jpg" href="favicon.png"/>
+    <link rel="shortcut icon" type="image/jpg" href="favicon.png" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
@@ -73,6 +73,11 @@
       .file-list button:hover {
         background-color: #45a049;
       }
+      .subtext {
+        font-size: 14px;
+        color: #b0b0b0;
+        margin-top: -25px; 
+      }
     </style>
   </head>
   <body>
@@ -87,13 +92,14 @@
 
     <div class="content">
       <h1>Available scripts</h1>
+      <div class="subtext">Will require a key but just DM me for it</div>
       <ul class="file-list" id="fileList"></ul>
     </div>
 
     <script>
       document.addEventListener("DOMContentLoaded", () => {
         const files = [
-          "file1.txt", // Add your file names here
+          "file1.txt",
         ];
 
         const fileList = document.getElementById("fileList");
