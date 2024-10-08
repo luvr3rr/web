@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.7" />
+    <title>Halloween Event Calculator</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        background-color: black;
+        color: white;
+        font-family: Arial, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        position: relative;
+      }
+      h1 {
+        margin: 0;
+        padding: 20px;
+        font-size: 3em;
+        text-align: center;
+        position: absolute;
+        top: 2%;
+        color: orange;
+      }
+      .input-container {
+        position: absolute;
+        top: 15%;
+        text-align: center;
+      }
+      input[type="number"] {
+        padding: 10px;
+        font-size: 1em;
+        border: none;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 1em;
+        border: none;
+        border-radius: 5px;
+        background-color: purple;
+        color: white;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: darkviolet;
+      }
+      .output-container {
+        position: absolute;
+        top: 35%;
+        width: 80%;
+        text-align: left;
+        left: 2%;
+      }
+      h2 {
+        font-size: 1.5em;
+      }
+      .table-container {
+        position: absolute;
+        top: 45%; /* Adjusted top position to accommodate spacing */
+        left: 2%;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-top: 10px;
+      }
+      th,
+      td {
+        border: 1px solid white;
+        padding: 8px;
+        text-align: left;
+      }
+      th {
+        background-color: purple;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Halloween Event Calculator</h1>
+    <div class="input-container">
+      <input type="number" placeholder="Total Candy Corn" id="numberInput" />
+      <button onclick="submitNumber()">Submit</button>
+    </div>
+    <div class="output-container">
+      <h2>Amount of pets/items you can buy with submitted amount:</h2>
+    </div>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Pets</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Indian Flying Fox</td>
+            <td id="indianFlyingFoxAmount">00</td>
+          </tr>
+          <tr>
+            <td>Frankenfeline</td>
+            <td id="frankenfelineAmount">00</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top: 1px"></div>
+      <!-- Reduced space -->
+      <table style="margin-top: 20px">
+        <thead>
+          <tr>
+            <th>Pet Clothes</th>
+            <th>Amount</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td colspan="2">Will add these later lol</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      function submitNumber() {
+        const number =
+          parseInt(document.getElementById("numberInput").value) || 0;
+        const indianFlyingFoxAmount = Math.floor(number / 61000);
+        const frankenfelineAmount = Math.floor(number / 3600);
+        document.getElementById("indianFlyingFoxAmount").textContent =
+          indianFlyingFoxAmount;
+        document.getElementById("frankenfelineAmount").textContent =
+          frankenfelineAmount;
+      }
+    </script>
+  </body>
+</html>
