@@ -106,6 +106,14 @@
           <tr>
             <td>Frankenfeline</td>
             <td id="frankenfelineAmount">00</td>
+          </tr>    
+          <tr>
+            <td>Sea Skeleton Panda</td>
+            <td id="seaskeletonpandaamount">00</td>
+          </tr>
+          <tr>
+            <td>Scarebear</td>
+            <td id="scarebearamount">00</td>
           </tr>
         </tbody>
       </table>
@@ -132,10 +140,16 @@
           parseInt(document.getElementById("numberInput").value) || 0;
         const indianFlyingFoxAmount = Math.floor(number / 61000);
         const frankenfelineAmount = Math.floor(number / 3600);
+        const seaskeletonpandaamount = Math.floor(number / 8000);
+        const scarebearamount = Math.floor(number / 140000);
         document.getElementById("indianFlyingFoxAmount").textContent =
           indianFlyingFoxAmount;
         document.getElementById("frankenfelineAmount").textContent =
           frankenfelineAmount;
+        document.getElementById("seaskeletonpandaamount").textContent =
+          seaskeletonpandaamount;
+        document.getElementById("scarebearamount").textContent =
+          scarebearamount;
       }
     </script>
   </body>
