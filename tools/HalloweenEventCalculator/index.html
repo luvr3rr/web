@@ -138,13 +138,14 @@
       <table style="margin-top: 20px">
         <thead>
           <tr>
-            <th>Pet Clothes</th>
+            <th>Items</th>
             <th>Amount</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td colspan="2">Will add these later lol</td>
+            <td>Halloween Chick Box</td>
+            <td id="TotalChickBox">00</td>
           </tr>
         </tbody>
       </table>
@@ -157,11 +158,14 @@
         const frankenfelineNormal = Math.floor(number / 3600);
         const seaskeletonpandaNormal = Math.floor(number / 8000);
         const scarebearNormal = Math.floor(number / 140000);
+        const TotalChickBox = Math.floor(number / 17000);
 
         document.getElementById("indianFlyingFoxNormal").textContent = indianFlyingFoxNormal;
         document.getElementById("frankenfelineNormal").textContent = frankenfelineNormal;
         document.getElementById("seaskeletonpandaNormal").textContent = seaskeletonpandaNormal;
         document.getElementById("scarebearNormal").textContent = scarebearNormal;
+        document.getElementById("TotalChickBox").textContent = TotalChickBox;
+
 
         document.getElementById("indianFlyingFoxNeon").textContent = Math.floor(indianFlyingFoxNormal / 4);
         document.getElementById("frankenfelineNeon").textContent = Math.floor(frankenfelineNormal / 4);
