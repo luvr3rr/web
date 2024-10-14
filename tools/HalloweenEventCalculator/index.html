@@ -131,6 +131,12 @@
             <td id="scarebearNeon">00</td>
             <td id="scarebearNormal">00</td>
           </tr>
+          <tr>
+            <td>Marabou Stork</td>
+            <td id="maraboustorkMega">00</td>
+            <td id="maraboustorkNeon">00</td>
+            <td id="maraboustorkNormal">00</td>
+          </tr>
         </tbody>
       </table>
       <div style="margin-top: 1px"></div>
@@ -159,23 +165,27 @@
         const seaskeletonpandaNormal = Math.floor(number / 8000);
         const scarebearNormal = Math.floor(number / 140000);
         const TotalChickBox = Math.floor(number / 17000);
+        const maraboustorkNormal = Math.floor(number / 19000);
 
         document.getElementById("indianFlyingFoxNormal").textContent = indianFlyingFoxNormal;
         document.getElementById("frankenfelineNormal").textContent = frankenfelineNormal;
         document.getElementById("seaskeletonpandaNormal").textContent = seaskeletonpandaNormal;
         document.getElementById("scarebearNormal").textContent = scarebearNormal;
         document.getElementById("TotalChickBox").textContent = TotalChickBox;
+        document.getElementById("maraboustorkNormal").textContent = maraboustorkNormal;
 
 
         document.getElementById("indianFlyingFoxNeon").textContent = Math.floor(indianFlyingFoxNormal / 4);
         document.getElementById("frankenfelineNeon").textContent = Math.floor(frankenfelineNormal / 4);
         document.getElementById("seaskeletonpandaNeon").textContent = Math.floor(seaskeletonpandaNormal / 4);
         document.getElementById("scarebearNeon").textContent = Math.floor(scarebearNormal / 4);
+        document.getElementById("maraboustorkNeon").textContent = Math.floor(maraboustorkNormal / 4);
 
         document.getElementById("indianFlyingFoxMega").textContent = Math.floor(indianFlyingFoxNormal / 16);
         document.getElementById("frankenfelineMega").textContent = Math.floor(frankenfelineNormal / 16);
         document.getElementById("seaskeletonpandaMega").textContent = Math.floor(seaskeletonpandaNormal / 16);
         document.getElementById("scarebearMega").textContent = Math.floor(scarebearNormal / 16);
+        document.getElementById("maraboustorkMega").textContent = Math.floor(maraboustorkNormal / 16);
       }
     </script>
   </body>
