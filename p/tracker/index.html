@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <title>Adopt Me Stat Tracker</title>
+    <script>
+      function toggleUsernameVisibility() {
+        const toggle = document.getElementById("toggleHideUsername");
+        const usernames = document.querySelectorAll(".username");
+        usernames.forEach((el) => {
+          el.innerText = toggle.checked
+            ? "x".repeat(el.innerText.length)
+            : el.dataset.original;
+        });
+      }
+
+      function openTab(event, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(
+            " bg-blue-500",
+            ""
+          );
+        }
+        document.getElementById(tabName).style.display = "block";
+        event.currentTarget.className += " bg-blue-500";
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("defaultOpen").click();
+      });
+
+      // Function to calculate total potions (middle number)
+      function calculateTotalPotions(jsonData) {
+        let totalPotions = 0;
+
+        // Loop through each key in the JSON data
+        for (const key in jsonData) {
+          if (jsonData.hasOwnProperty(key)) {
+            const value = jsonData[key];
+            const splitValues = value.split("&"); // Split by '&'
+            const middleNumber = parseInt(splitValues[1], 10); // Get the middle number
+            totalPotions += middleNumber; // Add to total potions
+          }
+        }
+
+        return totalPotions;
+      }
+
+      // Function to calculate total bucks (first number)
+      function calculateTotalBucks(jsonData) {
+        let totalBucks = 0;
+
+        // Loop through each key in the JSON data
+        for (const key in jsonData) {
+          if (jsonData.hasOwnProperty(key)) {
+            const value = jsonData[key];
+            const splitValues = value.split("&"); // Split by '&'
+            const firstNumber = parseInt(splitValues[0], 10); // Get the first number
+            totalBucks += firstNumber; // Add to total bucks
+          }
+        }
+
+        return totalBucks;
+      }
+
+      // Function to calculate total event currency (last number)
+      function calculateTotalEventCurrency(jsonData) {
+        let totalEventCurrency = 0;
+
+        // Loop through each key in the JSON data
+        for (const key in jsonData) {
+          if (jsonData.hasOwnProperty(key)) {
+            const value = jsonData[key];
+            const splitValues = value.split("&"); // Split by '&'
+            const lastNumber = parseInt(splitValues[2], 10); // Get the last number
+            totalEventCurrency += lastNumber; // Add to total event currency
+          }
+        }
+
+        return totalEventCurrency;
+      }
+
+      // Function to format numbers with commas
+      function formatNumberWithCommas(number) {
+        return number.toLocaleString(); // Format number with commas
+      }
+
+      // Fetch data from the API
+      fetch("http://minik.sebas.sbs:25764/api/stats?key=sebas11532342")
+        .then((response) => response.json()) // Parse the JSON data
+        .then((jsonData) => {
+          const totalPotions = calculateTotalPotions(jsonData); // Calculate the total potions
+          const totalBucks = calculateTotalBucks(jsonData); // Calculate the total bucks
+          const totalEventCurrency = calculateTotalEventCurrency(jsonData); // Calculate the total event currency
+
+          // Format the numbers with commas
+          const formattedTotalPotions = formatNumberWithCommas(totalPotions);
+          const formattedTotalBucks = formatNumberWithCommas(totalBucks);
+          const formattedTotalEventCurrency =
+            formatNumberWithCommas(totalEventCurrency);
+
+          // Update the content of the 'total-potions', 'total-bucks', and 'total-currency' elements
+          document.getElementById("total-potions").innerText =
+            formattedTotalPotions;
+          document.getElementById("total-bucks").innerText =
+            formattedTotalBucks;
+          document.getElementById("total-currency").innerText =
+            formattedTotalEventCurrency;
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+
+      // acc update
+      function formatNumberWithCommas(number) {
+        return number.toLocaleString();
+      }
+
+      function updateTableCells(
+        key,
+        bucksCellId,
+        potionsCellId,
+        currencyCellId,
+        jsonData
+      ) {
+        const data = jsonData[key];
+
+        if (data) {
+          const splitValues = data.split("&");
+          const bucks = parseInt(splitValues[0], 10);
+          const potions = parseInt(splitValues[1], 10);
+          const currency = parseInt(splitValues[2], 10);
+
+          const formattedBucks = formatNumberWithCommas(bucks);
+          const formattedPotions = formatNumberWithCommas(potions);
+          const formattedCurrency = formatNumberWithCommas(currency);
+
+          document.getElementById(bucksCellId).innerText = formattedBucks;
+          document.getElementById(potionsCellId).innerText = formattedPotions;
+          document.getElementById(currencyCellId).innerText = formattedCurrency;
+        } else {
+          console.error(`Key '${key}' not found in JSON data.`);
+        }
+      }
+
+      fetch("http://minik.sebas.sbs:25764/api/stats?key=sebas11532342")
+        .then((response) => response.json())
+        .then((jsonData) => {
+          updateTableCells(
+            "fairychesrose",
+            "bucks-c1-t1",
+            "pots-c1-t1",
+            "curr-c1-t1",
+            jsonData
+          );
+          updateTableCells(
+            "cowienie",
+            "bucks-c2-t1",
+            "pots-c2-t1",
+            "curr-c2-t1",
+            jsonData
+          );
+          updateTableCells(
+            "frnithb",
+            "bucks-c3-t1",
+            "pots-c3-t1",
+            "curr-c3-t1",
+            jsonData
+          );
+          updateTableCells(
+            "clodplyl",
+            "bucks-c4-t1",
+            "pots-c4-t1",
+            "curr-c4-t1",
+            jsonData
+          );
+
+          updateTableCells(
+            "3msdd",
+            "bucks-c1-t2",
+            "pots-c1-t2",
+            "curr-c1-t2",
+            jsonData
+          );
+          updateTableCells(
+            "8msddd",
+            "bucks-c2-t2",
+            "pots-c2-t2",
+            "curr-c2-t2",
+            jsonData
+          );
+          updateTableCells(
+            "eftedrss",
+            "bucks-c3-t2",
+            "pots-c3-t2",
+            "curr-c3-t2",
+            jsonData
+          );
+          updateTableCells(
+            "cteoqei",
+            "bucks-c4-t2",
+            "pots-c4-t2",
+            "curr-c4-t2",
+            jsonData
+          );
+
+          updateTableCells(
+            "6msdd",
+            "bucks-c1-t3",
+            "pots-c1-t3",
+            "curr-c1-t3",
+            jsonData
+          );
+          updateTableCells(
+            "5msdd",
+            "bucks-c2-t3",
+            "pots-c2-t3",
+            "curr-c2-t3",
+            jsonData
+          );
+          updateTableCells(
+            "bonn_i0e",
+            "bucks-c3-t3",
+            "pots-c3-t3",
+            "curr-c3-t3",
+            jsonData
+          );
+          updateTableCells(
+            "itsmeil_u",
+            "bucks-c4-t3",
+            "pots-c4-t3",
+            "curr-c4-t3",
+            jsonData
+          );
+
+          updateTableCells(
+            "only_sad777",
+            "bucks-c1-t4",
+            "pots-c1-t4",
+            "curr-c1-t4",
+            jsonData
+          );
+          updateTableCells(
+            "unicornblut",
+            "bucks-c2-t4",
+            "pots-c2-t4",
+            "curr-c2-t4",
+            jsonData
+          );
+          updateTableCells(
+            "7msdd",
+            "bucks-c3-t4",
+            "pots-c3-t4",
+            "curr-c3-t4",
+            jsonData
+          );
+          updateTableCells(
+            "4msdd",
+            "bucks-c4-t4",
+            "pots-c4-t4",
+            "curr-c4-t4",
+            jsonData
+          );
+
+          updateTableCells(
+            "purepwrrr",
+            "bucks-c1-t5",
+            "pots-c1-t5",
+            "curr-c1-t5",
+            jsonData
+          );
+          updateTableCells(
+            "fewioen",
+            "bucks-c2-t5",
+            "pots-c2-t5",
+            "curr-c2-t5",
+            jsonData
+          );
+          updateTableCells(
+            "snrioepom",
+            "bucks-c3-t5",
+            "pots-c3-t5",
+            "curr-c3-t5",
+            jsonData
+          );
+          updateTableCells(
+            "cnnsnrio",
+            "bucks-c4-t5",
+            "pots-c4-t5",
+            "curr-c4-t5",
+            jsonData
+          );
+        })
+        .catch((error) => {
+          console.error("Error fetching data:", error);
+        });
+    </script>
+    <style>
+      .toggle {
+        position: relative;
+        display: inline-block;
+        width: 34px;
+        height: 20px;
+      }
+      .toggle input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 20px;
+      }
+      .slider:before {
+        position: absolute;
+        content: "";
+        height: 14px;
+        width: 14px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+      input:checked + .slider {
+        background-color: #38b2ac;
+      }
+      input:checked + .slider:before {
+        transform: translateX(14px);
+      }
+      .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 8px;
+      }
+      .tablinks {
+        cursor: pointer;
+        padding: 5px 30px;
+        transition: 0.3s;
+      }
+      .tablinks:hover {
+        background-color: #555;
+      }
+      .tabcontent {
+        display: none;
+        padding: 1px 12px;
+        border-top: none;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-900 text-white">
+    <nav class="bg-blue-400 py-2 px-4 flex justify-between items-center">
+      <h1 class="text-white text-lg font-bold">Stat Tracker</h1>
+      <div class="flex items-center">
+        <span id="username" class="text-white text-lg font-bold">sebas</span>
+        <span class="text-white mx-2">|</span>
+        <a href="https://sebas.sbs" class="text-white text-lg">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+          </svg>
+        </a>
+      </div>
+    </nav>
+
+    <div class="container mx-auto p-4">
+      <h2 class="text-3xl font-bold text-center">Adopt Me Stat Tracker</h2>
+      <div class="flex justify-center space-x-4 mt-4">
+        <!-- Total Potions Container -->
+        <div
+          class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg w-48 flex flex-col items-center justify-center"
+        >
+          <p class="text-center font-bold">Total Potions</p>
+          <p id="total-potions" class="text-center">999</p>
+        </div>
+
+        <!-- Total Bucks Container -->
+        <div
+          class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg w-48 flex flex-col items-center justify-center"
+        >
+          <p class="text-center font-bold">Total Bucks</p>
+          <p id="total-bucks" class="text-center">9999</p>
+        </div>
+
+        <!-- Total Event Currency Container -->
+        <div
+          class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg w-48 flex flex-col items-center justify-center"
+        >
+          <p class="text-center font-bold">Total Event Currency</p>
+          <p id="total-currency" class="text-center">9999</p>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <h3 class="text-2xl font-bold mt-8 text-center">Accounts</h3>
+      <div class="mt-4">
+        <div class="flex justify-center -ml-10">
+          <button
+            class="tablinks bg-gray-700 py-2 px-4 rounded-t-lg"
+            onclick="openTab(event, 'tab1')"
+            id="defaultOpen"
+          >
+            P1
+          </button>
+          <button
+            class="tablinks bg-gray-700 py-2 px-4 rounded-t-lg"
+            onclick="openTab(event, 'tab2')"
+          >
+            P2
+          </button>
+          <button
+            class="tablinks bg-gray-700 py-2 px-4 rounded-t-lg"
+            onclick="openTab(event, 'tab3')"
+          >
+            P3
+          </button>
+          <button
+            class="tablinks bg-gray-700 py-2 px-4 rounded-t-lg"
+            onclick="openTab(event, 'tab4')"
+          >
+            P4
+          </button>
+          <button
+            class="tablinks bg-gray-700 py-2 px-4 rounded-t-lg"
+            onclick="openTab(event, 'tab5')"
+          >
+            P5
+          </button>
+        </div>
+      </div>
+
+      <!-- Accounts Table -->
+
+      <div class="overflow-x-auto">
+        <div id="tab1" class="tabcontent">
+          <table
+            class="w-full max-w-lg mx-auto bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg"
+          >
+            <thead class="bg-blue-500">
+              <tr>
+                <th class="py-2 px-4 border-b text-left">Username</th>
+                <th class="py-2 px-4 border-b text-center">Potions</th>
+                <th class="py-2 px-4 border-b text-center">Bucks</th>
+                <th class="py-2 px-4 border-b text-center">Event Currency</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-700">
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-green-500"></span
+                  ><span class="username" data-original="fairychesrose"
+                    >fairychesrose</span
+                  >
+                </td>
+                <td id="pots-c1-t1" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c1-t1" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c1-t1" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-red-500"></span
+                  ><span class="username" data-original="cowienie"
+                    >cowienie</span
+                  >
+                </td>
+                <td id="pots-c2-t1" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c2-t1" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c2-t1" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-green-500"></span
+                  ><span class="username" data-original="frnithb">frnithb</span>
+                </td>
+                <td id="pots-c3-t1" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c3-t1" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c3-t1" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-red-500"></span
+                  ><span class="username" data-original="clodplyl"
+                    >clodplyl</span
+                  >
+                </td>
+                <td id="pots-c4-t1" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c4-t1" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c4-t1" class="py-2 px-4 text-center">9999</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="tab2" class="tabcontent">
+          <table
+            class="w-full max-w-lg mx-auto bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg"
+          >
+            <thead class="bg-blue-500">
+              <tr>
+                <th class="py-2 px-4 border-b text-left">Username</th>
+                <th class="py-2 px-4 border-b text-center">Potions</th>
+                <th class="py-2 px-4 border-b text-center">Bucks</th>
+                <th class="py-2 px-4 border-b text-center">Event Currency</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-700">
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-green-500"></span
+                  ><span class="username" data-original="3msdd">3msdd</span>
+                </td>
+                <td id="pots-c1-t2" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c1-t2" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c1-t2" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-red-500"></span
+                  ><span class="username" data-original="8msddd">8msddd</span>
+                </td>
+                <td id="pots-c2-t2" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c2-t2" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c2-t2" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-green-500"></span
+                  ><span class="username" data-original="eftedrss"
+                    >eftedrss</span
+                  >
+                </td>
+                <td id="pots-c3-t2" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c3-t2" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c3-t2" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-red-500"></span
+                  ><span class="username" data-original="cteoqei">cteoqei</span>
+                </td>
+                <td id="pots-c4-t2" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c4-t2" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c4-t2" class="py-2 px-4 text-center">9999</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="tab3" class="tabcontent">
+          <table
+            class="w-full max-w-lg mx-auto bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg"
+          >
+            <thead class="bg-blue-500">
+              <tr>
+                <th class="py-2 px-4 border-b text-left">Username</th>
+                <th class="py-2 px-4 border-b text-center">Potions</th>
+                <th class="py-2 px-4 border-b text-center">Bucks</th>
+                <th class="py-2 px-4 border-b text-center">Event Currency</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-700">
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-green-500"></span
+                  ><span class="username" data-original="6msdd">6msdd</span>
+                </td>
+                <td id="pots-c1-t3" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c1-t3" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c1-t3" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-red-500"></span
+                  ><span class="username" data-original="5msdd">5msdd</span>
+                </td>
+                <td id="pots-c2-t3" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c2-t3" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c2-t3" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-green-500"></span
+                  ><span class="username" data-original="bonn_i0e"
+                    >bonn_i0e</span
+                  >
+                </td>
+                <td id="pots-c3-t3" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c3-t3" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c3-t3" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-red-500"></span
+                  ><span class="username" data-original="itsmeil_u"
+                    >itsmeil_u</span
+                  >
+                </td>
+                <td id="pots-c4-t3" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c4-t3" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c4-t3" class="py-2 px-4 text-center">9999</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="tab4" class="tabcontent">
+          <table
+            class="w-full max-w-lg mx-auto bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg"
+          >
+            <thead class="bg-blue-500">
+              <tr>
+                <th class="py-2 px-4 border-b text-left">Username</th>
+                <th class="py-2 px-4 border-b text-center">Potions</th>
+                <th class="py-2 px-4 border-b text-center">Bucks</th>
+                <th class="py-2 px-4 border-b text-center">Event Currency</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-700">
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-green-500"></span
+                  ><span class="username" data-original="only_sad777"
+                    >only_sad777</span
+                  >
+                </td>
+                <td id="pots-c1-t4" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c1-t4" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c1-t4" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-red-500"></span
+                  ><span class="username" data-original="unicornblut"
+                    >unicornblut</span
+                  >
+                </td>
+                <td id="pots-c2-t4" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c2-t4" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c2-t4" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-green-500"></span
+                  ><span class="username" data-original="7msdd">7msdd</span>
+                </td>
+                <td id="pots-c3-t4" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c3-t4" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c3-t4" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-red-500"></span
+                  ><span class="username" data-original="4msdd">4msdd</span>
+                </td>
+                <td id="pots-c4-t4" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c4-t4" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c4-t4" class="py-2 px-4 text-center">9999</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div id="tab5" class="tabcontent">
+          <table
+            class="w-full max-w-lg mx-auto bg-gray-800 text-white rounded-lg overflow-hidden shadow-lg"
+          >
+            <thead class="bg-blue-500">
+              <tr>
+                <th class="py-2 px-4 border-b text-left">Username</th>
+                <th class="py-2 px-4 border-b text-center">Potions</th>
+                <th class="py-2 px-4 border-b text-center">Bucks</th>
+                <th class="py-2 px-4 border-b text-center">Event Currency</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-700">
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-green-500"></span
+                  ><span class="username" data-original="purepwrrr"
+                    >purepwrrr</span
+                  >
+                </td>
+                <td id="pots-c1-t5" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c1-t5" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c1-t5" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-red-500"></span
+                  ><span class="username" data-original="fewioen">fewioen</span>
+                </td>
+                <td id="pots-c2-t5" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c2-t5" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c2-t5" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-green-500"></span
+                  ><span class="username" data-original="snrioepom"
+                    >snrioepom</span
+                  >
+                </td>
+                <td id="pots-c3-t5" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c3-t5" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c3-t5" class="py-2 px-4 text-center">9999</td>
+              </tr>
+              <tr>
+                <td class="py-2 px-4 text-left">
+                  <span class="status-dot bg-red-500"></span
+                  ><span class="username" data-original="cnnsnrio"
+                    >cnnsnrio</span
+                  >
+                </td>
+                <td id="pots-c4-t5" class="py-2 px-4 text-center">9999</td>
+                <td id="bucks-c4-t5" class="py-2 px-4 text-center">9999</td>
+                <td id="curr-c4-t5" class="py-2 px-4 text-center">9999</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Settings Section -->
+      <h3 class="text-2xl font-bold mt-8 text-center">Settings</h3>
+      <div class="flex justify-center mt-4 space-x-4">
+        <button
+          class="bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-green-600"
+          onclick="location.reload();"
+        >
+          Refresh Stats
+        </button>
+
+        <button
+          class="bg-red-500 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-red-600"
+          onclick="alert('You don\'t have permissions for this action')"
+        >
+          Delete Data
+        </button>
+
+        <button
+          class="bg-green-500 text-white py-2 px-4 rounded-lg shadow-lg hover:bg-green-600"
+          onclick="window.open('http://minik.sebas.sbs:25764/api/stats?key=sebas11532342', '_blank')"
+        >
+          View JSON
+        </button>
+      </div>
+
+      <!-- Toggles -->
+      <div class="flex justify-center mt-6 space-x-4">
+        <div
+          class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg flex items-center"
+        >
+          <span class="mr-2">Hide Username</span>
+          <label class="toggle">
+            <input
+              type="checkbox"
+              id="toggleHideUsername"
+              onchange="toggleUsernameVisibility()"
+            />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div
+          class="bg-blue-500 text-white py-2 px-4 rounded-lg shadow-lg flex items-center"
+        >
+          <span class="mr-2">Placeholder</span>
+          <label class="toggle">
+            <input type="checkbox" />
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
